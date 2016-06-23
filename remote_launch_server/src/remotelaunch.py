@@ -4,8 +4,8 @@ from processhandle import ProcessHandler
 from remote_launch_server.srv import *
 from remote_launch_server.msg import *
 
-
 class RemoteLaunchServer:
+    '''The main class'''
     def __init__(self):
 
         # Init node
@@ -42,9 +42,12 @@ class RemoteLaunchServer:
             # Sleep based on time this loop took
             rate.sleep()
 
-    # Reads filename as a CSV file where a line for each launch file configuration
-    # Parameters are comma separated in the order (name, command, working_directory)
+
     def read_cfg(self, filename):
+        '''
+        Reads filename as a CSV file where a line for each launch file configuration
+        Parameters are comma separated in the order (name, command, working_directory)
+        '''
 
         rospy.logdebug("Will try to read file %s",filename)
 
@@ -71,14 +74,13 @@ class RemoteLaunchServer:
         rospy.loginfo("Successfully read %d launch files from file %s", len(self.launch_list), filename)
 
 
-    # Prints the launch_list list, mainly used for debugging
     def print_cfg(self):
+        '''Prints the launch_list list, mainly used for debugging'''
         for lf in self.launch_list:
             rospy.loginfo("%d. Name: %s Command: %s Directory: %s", lf.id, lf.name, lf.cmd, lf.wd)        
 
-    # StartLaunchFile service server
     def start_launch_file_server(self):
-
+        '''StartLaunchFile service server'''
         try:
             # Doesn't need a huge buffer
             self.server_start_launch_file = rospy.Service(self.node_name+'/StartLaunchFile', StartLaunchFile, self.handle_start_launch_file, 20)
@@ -88,8 +90,8 @@ class RemoteLaunchServer:
 
         rospy.loginfo("Service StartLaunchFile has started")
 
-    # StartLaunchFile service handler
     def handle_start_launch_file(self, req):
+        '''StartLaunchFile service handler'''
         rospy.logdebug("Received request to start file with id %d", req.rlf.id)
 
         # Command arguments (optional)
@@ -123,9 +125,8 @@ class RemoteLaunchServer:
         # Service response
         return StartLaunchFileResponse(success=True)
 
-    # StopLaunchFile service server
     def stop_launch_file_server(self):
-        
+        '''StopLaunchFile service server'''        
         try:
             # Doesn't need a huge buffer
             self.server_stop_launch_file = rospy.Service(self.node_name+'/StopLaunchFile', StopLaunchFile, self.handle_stop_launch_file, 20)
@@ -135,8 +136,8 @@ class RemoteLaunchServer:
 
         rospy.loginfo("Service StopLaunchFile has started")    
 
-    # StopLaunchFile service handler
     def handle_stop_launch_file(self, req):
+        '''StopLaunchFile service handler'''
         reqid = req.rlf.id
         rospy.logdebug("Received request to stop file with id %d", reqid)
 
@@ -162,8 +163,8 @@ class RemoteLaunchServer:
             # Service response
             return StopLaunchFileResponse(success=True)
 
-    # Create the list_launch_files topic publisher
     def list_launch_files_publisher(self):
+        '''Create the list_launch_files topic publisher'''
         try:
             # Publishes an array of std_msgs/UInt8 values
             pub = rospy.Publisher(self.node_name+'/list_launch_files', RemoteLaunchFileArray, queue_size=2)
@@ -173,19 +174,9 @@ class RemoteLaunchServer:
         else:
             return pub
 
-    # Publish RemoteLaunchFileArray messages in list_launch_files topic
     def publish_list_launch_files(self, publisher, launch_list):
+        '''Publish RemoteLaunchFileArray messages in list_launch_files topic'''        
         
-        # Array of RemoteLaunchFile messages
-        '''
-        RemoteLaunchFile.msg
-        -uint8 id
-        -string name
-        -string command
-        -string working_directory
-        -bool running
-        '''
-
         # Initiate the message
         msg = RemoteLaunchFileArray()
 
@@ -217,11 +208,13 @@ class RemoteLaunchServer:
 
 
 class LaunchFile:
+    '''Responsible for keeping the state of a single launch file'''
     # Persistent _ID in class scope
     _ID = itertools.count(0)
 
-    # Class constructor, expects parameters as a list of strings in the order (name, command, working_directory)
     def __init__(self, parameters):
+        '''Class constructor, expects parameters as a list of strings in the order (name, command, working_directory)'''
+
         # Store _ID in this instance and increment for the next instance of class
         self.id = self._ID.next()
         # Name as a description of the command

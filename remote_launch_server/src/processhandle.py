@@ -2,16 +2,20 @@
 import signal, psutil, subprocess
 
 class ProcessHandler:
+    '''This class interacts directly with system to run a system command'''
 
     def __init__(self, command, cwdopt="./"):
+        '''Runs the command and accepts a custom working directory'''
         self.p = psutil.Popen(command, stdin=subprocess.PIPE, shell=True, cwd=cwdopt)
 
     def is_active(self):
+        '''Tries to verify if the file is still active, returning true if so'''
         self.p.poll()
         ret = True if (self.p.returncode == None) else False
         return ret
 
     def kill_proc_tree(self):
+        '''Kills the process'''
         # Get all children recursively
         children = self.p.get_children(recursive=True)
         
@@ -30,6 +34,7 @@ class ProcessHandler:
             child.kill()
 
     def __del__(self):
+        '''Destructor of this object should first kill the process'''
         self.kill_proc_tree()
 
         # Older version, keeping here but deprecated

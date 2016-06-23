@@ -1,2 +1,2 @@
-- builder: sphinx
-  sphinx_root_dir: doc
+- builder: epydoc
+  config: epydoc.config
