@@ -1,0 +1,23 @@
+actions: []
+authors: Guilherme Lawless <guilherme.lawless@gmail.com>
+brief: ''
+bugtracker: ''
+depends:
+- catkin
+- message_runtime
+- python-catkin-pkg
+- rospy
+- message_generation
+- rosbridge_server
+description: The remote_launch_server package
+license: BSD
+maintainers: Guilherme Lawless <guilherme.lawless@gmail.com>
+msgs:
+- RemoteLaunchFile
+- RemoteLaunchFileArray
+package_type: package
+repo_url: ''
+srvs:
+- StopLaunchFile
+- StartLaunchFile
+url: ''

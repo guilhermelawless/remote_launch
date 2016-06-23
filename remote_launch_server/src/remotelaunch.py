@@ -179,11 +179,11 @@ class RemoteLaunchServer:
         # Array of RemoteLaunchFile messages
         '''
         RemoteLaunchFile.msg
-            uint8 id
-            string name
-            string command
-            string working_directory
-            bool running
+        -uint8 id
+        -string name
+        -string command
+        -string working_directory
+        -bool running
         '''
 
         # Initiate the message
