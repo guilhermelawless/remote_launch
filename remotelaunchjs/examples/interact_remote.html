@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="../css/style.css">
+<script src="http://cdn.robotwebtools.org/EaselJS/current/easeljs.js"></script>
+<script src="http://cdn.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+<script src="http://cdn.robotwebtools.org/roslibjs/current/roslib.js"></script>
+<script src="../build/remotelaunch.js"></script>
+
+<script>
+  /**
+   * Setup all visualization elements when the page is loaded. 
+   */
+  function init() {
+    // Connect to ROS.
+    var ros = new ROSLIB.Ros({
+      url : 'ws://localhost:9090'
+    });
+
+    var RLClient = new REMOTELAUNCH.Client({
+      ros : ros,
+      serverName : '/remote_launch_server',
+      topic : '/list_launch_files',
+    });
+
+    var RLInteract = new REMOTELAUNCH.ListInteract({
+      client : RLClient,
+      canvas : 'fileCanvas',
+      inputDiv : 'fileInputs',
+      tooltipsList : {
+        'QtCreator' : 'Launch QtCreator',
+        'SLAM Test' : 'Launches gmapping and uses a sample bag file to create a map',
+        'RViz' : 'Launch RViz software, for more advanced analysis of the robot',
+        'Test 1' : 'Just a test',
+      },
+      //onlyThese : [0,2],
+      tooltipsDiv : 'tooltips',
+      numberOfColumns : 2,
+      scale : 1
+    });
+  }
+</script>
+</head>
+
+<body onload="init()">
+  <h1>Example interacting with remote files</h1>
+  <h2>Follow these steps:</h2>
+  <ol style="font-size: 18px">
+    <li><tt>rosed remote_launch_server launch_cfg.csv (edit with your desired commands)</tt></li>
+    <li><tt>roslaunch remote_launch_server run_with_rosbridge.launch</tt></li>
+    <li><tt>Reload this page</tt></li>
+  </ol>
+  <br>
+  <div id='wrapper'>
+    <canvas id='fileCanvas'></canvas>  
+    <div id='fileInputs'></div>
+  </div>
+  <p>Please note that this example needs the following packages to be installed:</p>  
+  <ul>
+  <li><tt><a href="https://guilhermelawless@bitbucket.org/guilhermelawless/jarvis_web_stack.git">jarvis_web</a> metapackage</tt></li>
+  <li><tt><a href="http://wiki.ros.org/rosbridge_suite">rosbridge_suite</a> metapackage</tt></li>
+  </ul>
+  <div id='tooltips'>
+    <span></span>
+  </div>
+</body>
+</html>

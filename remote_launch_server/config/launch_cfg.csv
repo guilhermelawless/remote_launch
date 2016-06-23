@@ -1,0 +1,4 @@
+QtCreator,qtcreator,./
+SLAM Test,rosrun gmapping slam_gmapping scan:=base_scan & rosbag play --rate=0.1 --clock ~/Desktop/slam-example/basic_localization_stage.bag,./
+RViz,rviz,./
+Test 1,qtcreator & rviz & rqt,./

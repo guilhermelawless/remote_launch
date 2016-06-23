@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package>
+  <name>remote_launch_server</name>
+  <version>0.1.1</version>
+  <description>The remote_launch_server package</description>
+
+  <maintainer email="guilherme.lawless@gmail.com">Guilherme Lawless</maintainer>
+  <license>BSD</license>
+  <author email="guilherme.lawless@gmail.com">Guilherme Lawless</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+	<build_depend>message_generation</build_depend>
+  <build_depend>rospy</build_depend>
+  <run_depend>rospy</run_depend>
+	<run_depend>message_runtime</run_depend>
+	<run_depend>rosbridge_server</run_depend>
+</package>

@@ -1,0 +1,27 @@
+#wrapper{
+	position: absolute;
+	bottom: 500px;
+	left: 200px;
+}
+
+#fileCanvas{
+	position: absolute;
+	z-index: 2;
+}
+
+#fileInputs{
+	position: absolute;
+	z-index: 3;
+}
+
+#tooltips{
+	position: absolute;
+	display: none;
+	bottom: 100px;
+	left: 200px;
+	width: 400px;
+	height: 50px;
+	border: 2px solid #99ceff;
+	background-color: #cce6ff;
+	font-size: 16px;
+}

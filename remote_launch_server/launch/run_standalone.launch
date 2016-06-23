@@ -1,0 +1,5 @@
+<launch>
+  <node pkg="remote_launch_server" type="remotelaunch.py" name="remote_launch_server" output="screen">
+    <param name="cfg_file" value="$(find remote_launch_server)/config/launch_cfg.csv"/>
+  </node>
+</launch>
