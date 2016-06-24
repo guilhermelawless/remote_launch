@@ -14,7 +14,6 @@
   <build_depend>python-catkin-pkg</build_depend>
   <run_depend>rospy</run_depend>
   <run_depend>message_runtime</run_depend>
-  <run_depend>rosbridge_server</run_depend>
 
   <export>
     <rosdoc config="rosdoc.yaml"/>
