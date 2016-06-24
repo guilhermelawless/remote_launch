@@ -98,7 +98,7 @@ class RemoteLaunchServer:
         args = req.args
 
         # Prevent dangerous arguments characters
-        if ('&' in args) or (';' in args):
+        if ('&' in args) or (';' in args) or ('|' in args):
             args = ''
 
         reqid = req.rlf.id
