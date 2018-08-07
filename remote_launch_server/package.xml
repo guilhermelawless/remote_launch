@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>remote_launch_server</name>
-  <version>1.0.1</version>
+  <version>1.1.0</version>
   <description>Use to provide a simple button interface to web clients</description>
 
   <maintainer email="guilherme.lawless@gmail.com">Guilherme Lawless</maintainer>
