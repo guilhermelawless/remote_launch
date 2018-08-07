@@ -17,7 +17,7 @@ class RemoteLaunchServer:
 
         # Get config file parameter
         filename = rospy.get_param("/"+self.node_name+"/cfg_file", "../config/launch_cfg.csv")
-        
+
         # Read config file
         self.read_cfg(filename)
 
@@ -77,7 +77,7 @@ class RemoteLaunchServer:
     def print_cfg(self):
         '''Prints the launch_list list, mainly used for debugging'''
         for lf in self.launch_list:
-            rospy.loginfo("%d. Name: %s Command: %s Directory: %s", lf.id, lf.name, lf.cmd, lf.wd)        
+            rospy.loginfo("%d. Name: %s Command: %s Directory: %s", lf.id, lf.name, lf.cmd, lf.wd)
 
     def start_launch_file_server(self):
         '''StartLaunchFile service server'''
@@ -117,7 +117,7 @@ class RemoteLaunchServer:
             return StartLaunchFileResponse(success=False)
         except:
             pass
-        
+
         # Attach a ProcessHandler object to with the command + args
         thisLF.process = ProcessHandler(thisLF.cmd + ' ' + args, thisLF.wd)
 
@@ -126,7 +126,7 @@ class RemoteLaunchServer:
         return StartLaunchFileResponse(success=True)
 
     def stop_launch_file_server(self):
-        '''StopLaunchFile service server'''        
+        '''StopLaunchFile service server'''
         try:
             # Doesn't need a huge buffer
             self.server_stop_launch_file = rospy.Service(self.node_name+'/StopLaunchFile', StopLaunchFile, self.handle_stop_launch_file, 20)
@@ -134,7 +134,7 @@ class RemoteLaunchServer:
             rospy.logerr("Service StopLaunchFile creation failed: %s", e)
             return
 
-        rospy.loginfo("Service StopLaunchFile has started")    
+        rospy.loginfo("Service StopLaunchFile has started")
 
     def handle_stop_launch_file(self, req):
         '''StopLaunchFile service handler'''
@@ -175,8 +175,8 @@ class RemoteLaunchServer:
             return pub
 
     def publish_list_launch_files(self, publisher, launch_list):
-        '''Publish RemoteLaunchFileArray messages in list_launch_files topic'''        
-        
+        '''Publish RemoteLaunchFileArray messages in list_launch_files topic'''
+
         # Initiate the message
         msg = RemoteLaunchFileArray()
 

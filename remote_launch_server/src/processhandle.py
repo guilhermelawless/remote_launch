@@ -18,17 +18,17 @@ class ProcessHandler:
         '''Kills the process'''
         # Get all children recursively
         children = self.p.get_children(recursive=True)
-        
+
         # Try to SIGINT first
         for child in children:
             child.send_signal(signal.SIGINT)
         gone, alive = psutil.wait_procs(children, timeout=2)
-        
+
         # Try to SIGTERM those that are alive
         for child in alive:
             child.terminate()
         gone, alive = psutil.wait_procs(children, timeout=1)
-        
+
         # Finally brute force kill those alive
         for child in alive:
             child.kill()
@@ -43,13 +43,13 @@ class ProcessHandler:
         # Modified to send SIGINT signal to kill processes
         pid = self.p.pid
         subprocess.Popen("kill -INT `pstree -p %d | grep -oP '(?<=\()[0-9]+(?=\))'`" % pid, shell=True)
-        
+
         # Kill processes that did not exit on SIGINT
         #TODO: find if there are any processes left before trying this
         time.sleep(1)
         subprocess.Popen("kill `pstree -p %d | grep -oP '(?<=\()[0-9]+(?=\))'`" % pid, shell=True)
         '''
-     
+
         # Oldest version, keeping here but deprecated
         '''
         ps_command = subprocess.Popen("ps -o pid --ppid %d --noheaders" % self.p.pid, shell=True, stdout=subprocess.PIPE)
@@ -62,5 +62,5 @@ class ProcessHandler:
         self.p.kill()
         self.p.terminate()
         '''
-        
-        
+
+
