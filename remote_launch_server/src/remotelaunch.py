@@ -119,7 +119,12 @@ class RemoteLaunchServer:
             pass
 
         # Attach a ProcessHandler object to with the command + args
-        thisLF.process = ProcessHandler(thisLF.cmd + ' ' + args, thisLF.wd)
+        try:
+            thisLF.process = ProcessHandler(thisLF.cmd + ' ' + args, thisLF.wd)
+        except Exception:
+            rospy.logfatal("Could not start the process with id %d", reqid)
+            del thisLF.process
+            return StartLaunchFileResponse(success=False)
 
         rospy.loginfo("Successfully started file with id %d", reqid)
         # Service response

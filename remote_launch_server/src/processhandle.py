@@ -6,7 +6,15 @@ class ProcessHandler:
 
     def __init__(self, command, cwdopt="./"):
         '''Runs the command and accepts a custom working directory'''
-        self.p = psutil.Popen(command, stdin=subprocess.PIPE, shell=True, cwd=cwdopt)
+        self.p = self.open_process(command, cwdopt)
+        print 'Process created: ', command
+
+    def open_process(self, cmd, cwd):
+        try:
+            return psutil.Popen(cmd, cwd=cwd, stdin=subprocess.PIPE, shell=True)
+        except (psutil.ZombieProcess, psutil.AccessDenied, psutil.NoSuchProcess) as e:
+            print 'Could not open the process: ', e
+            raise
 
     def is_active(self):
         '''Tries to verify if the file is still active, returning true if so'''
@@ -17,7 +25,7 @@ class ProcessHandler:
     def kill_proc_tree(self):
         '''Kills the process'''
         # Get all children recursively
-        children = self.p.get_children(recursive=True)
+        children = self.p.children(recursive=True)
 
         # Try to SIGINT first
         for child in children:
