@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python2
 import roslib, rospy, csv, itertools, sys
 from processhandle import ProcessHandler
 from remote_launch_server.srv import *
