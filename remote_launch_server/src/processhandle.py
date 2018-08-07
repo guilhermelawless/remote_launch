@@ -43,7 +43,10 @@ class ProcessHandler:
 
     def __del__(self):
         '''Destructor of this object should first kill the process'''
-        self.kill_proc_tree()
+        try:
+            self.kill_proc_tree()
+        except psutil.NoSuchProcess:
+            pass
 
         # Older version, keeping here but deprecated
         '''
