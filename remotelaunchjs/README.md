@@ -2,9 +2,9 @@ remotelaunchjs
 =======
 
 #### Remote File Launcher
-Use this with [remote_launch_server](https://github.com/guilhermelawless/remote_launch) to launch processes remotely.
+Use this with [remote_launch_server](../remote_launch_server) to launch processes remotely.
 
-The documentation can be found in [JSDoc](https://htmlpreview.github.io/?https://github.com/guilhermelawless/remote_launch/blob/master/remotelaunchjs/doc/index.html).
+The documentation can be found in [JSDoc](https://guilhermelawless.github.io/remote_launch/remotelaunchjs/docs/).
 
 ### Usage
 Pre-built files can be found in either [remotelaunch.js](build/remotelaunch.js) or [remotelaunch.min.js](build/remotelaunch.min.js).
@@ -25,7 +25,7 @@ Checkout [utils/README.md](utils/README.md) for details on building.
 See [examples/](examples/) for example html files.
 
 ### License
-remotelaunchjs is released with a BSD license. For full terms and conditions, see the [LICENSE](LICENSE) file.
+remotelaunchjs is released with a BSD license. For full terms and conditions, see the [LICENSE](LICENSE.md) file.
 
 ### Authors
-See the [AUTHORS.md](AUTHORS) file for a full list of contributors.
+See the [AUTHORS](AUTHORS.md) file for a full list of contributors.
